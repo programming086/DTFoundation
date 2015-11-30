@@ -11,6 +11,8 @@
 
 #import "DTLog.h"
 
+#if !TARGET_OS_TV && __IPHONE_OS_VERSION_MIN_REQUIRED < 80000
+
 @interface DTActionSheet () <UIActionSheetDelegate>
 
 @end
@@ -179,3 +181,4 @@
 }
 
 @end
+#endif

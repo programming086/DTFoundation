@@ -9,6 +9,7 @@
 #import "DTAlertView.h"
 #import "DTLog.h"
 
+#if !TARGET_OS_TV  && __IPHONE_OS_VERSION_MIN_REQUIRED < 80000
 @interface DTAlertView() <UIAlertViewDelegate>
 
 @end
@@ -182,3 +183,4 @@
 }
 
 @end
+#endif

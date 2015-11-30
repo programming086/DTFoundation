@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A7917C76191A312600964D63"
-               BuildableName = "Unit Tests.xctest"
-               BlueprintName = "Unit Tests"
+               BlueprintIdentifier = "384470901BA3330F0037C68D"
+               BuildableName = "libStatic Library (tvOS).a"
+               BlueprintName = "Static Library (tvOS)"
                ReferencedContainer = "container:DTFoundation.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -26,18 +26,8 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "NO">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A7917C76191A312600964D63"
-               BuildableName = "Unit Tests.xctest"
-               BlueprintName = "Unit Tests"
-               ReferencedContainer = "container:DTFoundation.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <AdditionalOptions>
       </AdditionalOptions>
@@ -55,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A7917C76191A312600964D63"
-            BuildableName = "Unit Tests.xctest"
-            BlueprintName = "Unit Tests"
+            BlueprintIdentifier = "384470901BA3330F0037C68D"
+            BuildableName = "libStatic Library (tvOS).a"
+            BlueprintName = "Static Library (tvOS)"
             ReferencedContainer = "container:DTFoundation.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -70,6 +60,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "384470901BA3330F0037C68D"
+            BuildableName = "libStatic Library (tvOS).a"
+            BlueprintName = "Static Library (tvOS)"
+            ReferencedContainer = "container:DTFoundation.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
