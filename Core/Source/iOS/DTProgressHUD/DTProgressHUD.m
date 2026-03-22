@@ -7,6 +7,9 @@
 //
 
 #import "DTProgressHUD.h"
+
+#if TARGET_OS_IPHONE && !TARGET_OS_TV && !TARGET_OS_WATCH
+
 #import "DTProgressHUDWindow.h"
 
 #import "DTPieProgressIndicator.h"
@@ -60,45 +63,60 @@
 	self = [super initWithFrame:[UIScreen mainScreen].bounds];
 	if (self)
 	{
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
-		
-		CGRect bounds = CGRectMake(0, 0, PROGRESS_WIDTH, PROGRESS_HEIGHT);
-		
-		if (OS_IS_IOS7())
-		{
-			// On iOS7 we use a toolbar to blur the background
-			_hudView = [[UIToolbar alloc] initWithFrame:bounds];
-		}
-		else
-		{
-			_hudView = (DTProgressHUD *)[[UIView alloc] initWithFrame:bounds];
-			_hudView.backgroundColor = [UIColor colorWithWhite:0.87 alpha:0.95];
-		}
-		
-		[self addSubview:_hudView];
-		
-		// center HUD in the middle of the screen
-		_hudView.center = self.center;
-		
-		// set correct autoresizing masks
-		_hudView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-		
-		// Set rounded edges
-		_hudView.layer.cornerRadius = 13;
-		_hudView.layer.masksToBounds = YES;
-		
-		// initially hide
-		_hudView.alpha = 0.0;
-		
-		// set default animation duration
-		_fadeInDuration = DEFAULT_FADE_IN_ANIMATION_DURATION;
-		_fadeOutDuration = DEFAULT_FADE_OUT_ANIMATION_DURATION;
-		
-		_contentColor = [UIColor blackColor];
-		
-		self.userInteractionEnabled = NO;
+		[self _commonInit];
 	}
 	return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+	self = [super initWithCoder:aDecoder];
+	if (self)
+	{
+		[self _commonInit];
+	}
+	return self;
+}
+
+- (void)_commonInit
+{
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+	
+	CGRect bounds = CGRectMake(0, 0, PROGRESS_WIDTH, PROGRESS_HEIGHT);
+	
+	if (OS_IS_IOS7())
+	{
+		// On iOS7 we use a toolbar to blur the background
+		_hudView = [[UIToolbar alloc] initWithFrame:bounds];
+	}
+	else
+	{
+		_hudView = (DTProgressHUD *)[[UIView alloc] initWithFrame:bounds];
+		_hudView.backgroundColor = [UIColor colorWithWhite:0.87 alpha:0.95];
+	}
+	
+	[self addSubview:_hudView];
+	
+	// center HUD in the middle of the screen
+	_hudView.center = self.center;
+	
+	// set correct autoresizing masks
+	_hudView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+	
+	// Set rounded edges
+	_hudView.layer.cornerRadius = 13;
+	_hudView.layer.masksToBounds = YES;
+	
+	// initially hide
+	_hudView.alpha = 0.0;
+	
+	// set default animation duration
+	_fadeInDuration = DEFAULT_FADE_IN_ANIMATION_DURATION;
+	_fadeOutDuration = DEFAULT_FADE_OUT_ANIMATION_DURATION;
+	
+	_contentColor = [UIColor blackColor];
+	
+	self.userInteractionEnabled = NO;
 }
 
 - (void)dealloc
@@ -141,7 +159,18 @@
 	{
 		case HUDProgressTypeInfinite:
 		{
-			_activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+			if (@available(iOS 13, tvOS 13, *)) {
+				_activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
+			}
+			else
+			{
+				#if TARGET_OS_TV
+				_activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+				#else
+				_activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+				#endif
+			}
+				
 			_activityIndicator.translatesAutoresizingMaskIntoConstraints = NO;
 			
 			[_hudView addSubview:_activityIndicator];
@@ -178,7 +207,7 @@
 			_hudView.alpha = 0.0f;
 			
 			[UIView animateWithDuration:_fadeInDuration animations:^{
-				_hudView.alpha = 1.0f;
+				self->_hudView.alpha = 1.0f;
 			}];
 			
 			break;
@@ -324,7 +353,7 @@
 			[UIView animateWithDuration:_fadeOutDuration animations:^{
 				
 				// fade out
-				_hudView.alpha = 0.0f;
+				self->_hudView.alpha = 0.0f;
 			} completion:^(BOOL finished) {
 				//
 				
@@ -649,3 +678,5 @@
 }
 
 @end
+
+#endif

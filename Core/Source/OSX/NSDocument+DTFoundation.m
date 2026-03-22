@@ -8,6 +8,8 @@
 
 #import "NSDocument+DTFoundation.h"
 
+#if TARGET_OS_OSX
+
 @implementation NSDocument (DTFoundation)
 
 - (NSWindowController *)mainDocumentWindowController
@@ -22,3 +24,5 @@
 }
 
 @end
+
+#endif

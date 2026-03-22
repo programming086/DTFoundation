@@ -6,14 +6,17 @@
 //  Copyright (c) 2013 Cocoanetics. All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
-
 #import "DTSidePanelController.h"
-#import "UIView+DTFoundation.h"
+
+#if TARGET_OS_IPHONE && !TARGET_OS_WATCH
+
+#import <DTFoundation/UIView+DTFoundation.h>
 #import "UIViewController+DTSidePanelController.h"
-#import "DTLog.h"
+#import <DTFoundation/DTLog.h>
 #import "DTSidePanelPanGestureRecognizer.h"
 #import "DTSidePanelControllerSegue.h"
+
+#import <DTFoundation/DTCompatibility.h>
 
 @interface UIViewController () // private setter
 - (void)setSidePanelController:(DTSidePanelController *)sidePanelController;
@@ -444,9 +447,9 @@
 		[self _updatePanelViewControllerPresentationBeforeAnimationForPosition:position];
 
 		[UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseOut animations:^{
-			_centerBaseView.center = position;
+			self->_centerBaseView.center = position;
 		} completion:^(BOOL finished) {
-			_panelIsMoving = NO;
+			self->_panelIsMoving = NO;
 
 			[self _updateTapToCloseGesture];
 			[self _updatePanelViewControllerPresentationAfterAnimationForPosition:position];
@@ -845,8 +848,8 @@
 	CGFloat duration = animated?0.3:0;
 	
 	[UIView animateWithDuration:duration animations:^{
-		_leftBaseView.frame = [self _leftPanelFrame];
-		_rightBaseView.frame = [self _rightPanelFrame];
+		self->_leftBaseView.frame = [self _leftPanelFrame];
+		self->_rightBaseView.frame = [self _rightPanelFrame];
 	}];
 
 }
@@ -992,3 +995,5 @@
 }
 
 @end
+
+#endif

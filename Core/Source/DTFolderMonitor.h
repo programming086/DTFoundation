@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Cocoanetics. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
 // The block to execute if a monitored folder changes
 typedef void (^DTFolderMonitorBlock) (void);
 
@@ -28,7 +30,7 @@ typedef void (^DTFolderMonitorBlock) (void);
  @param block The block to execute if the folder is being modified
  @returns The instantiated monitor in suspended mode. Call -startMonitoring to start monitoring.
  */
-+ (DTFolderMonitor *)folderMonitorForURL:(NSURL *)URL block:(DTFolderMonitorBlock)block;
++ (DTFolderMonitor * _Nonnull)folderMonitorForURL:(NSURL * _Nonnull)URL block: (DTFolderMonitorBlock _Nullable)block;
 
 
 /**

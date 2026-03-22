@@ -71,7 +71,7 @@
 	
 	[self performBlock:^{
 		// set cancelling back after queue was cleared out
-		_isCancelling = NO;
+		self->_isCancelling = NO;
 	}];
 	
 	[_queue setSuspended:NO];
@@ -120,12 +120,12 @@
 
 #pragma mark - Block Operations
 
-- (void)performBlock:(void (^)())block
+- (void)performBlock:(void (^)(void))block
 {
 	[_queue addOperationWithBlock:block];
 }
 
-- (void)performBlockAndWait:(void (^)())block
+- (void)performBlockAndWait:(void (^)(void))block
 {
 	[_queue addOperationWithBlock:block];
 	[_queue waitUntilAllOperationsAreFinished];

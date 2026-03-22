@@ -7,6 +7,9 @@
 //
 
 #import "DTAnimatedGIF.h"
+
+#if TARGET_OS_IPHONE
+
 #import <ImageIO/ImageIO.h>
 
 // returns the frame duration for a given image in 1/100th seconds
@@ -108,21 +111,35 @@ static UIImage *DTAnimatedGIFFromImageSource(CGImageSourceRef source)
 	return [UIImage animatedImageWithImages:frames duration:totalDuration];
 }
 
-UIImage *DTAnimatedGIFFromFile(NSString *path)
+UIImage * _Nullable DTAnimatedGIFFromFile(NSString  * _Nonnull path)
 {
 	NSURL *URL = [NSURL fileURLWithPath:path];
 	CGImageSourceRef source = CGImageSourceCreateWithURL((__bridge CFURLRef)(URL), NULL);
+	
+	if (!source)
+	{
+		return nil;
+	}
+	
 	UIImage *image = DTAnimatedGIFFromImageSource(source);
 	CFRelease(source);
 	
 	return image;
 }
 
-UIImage *DTAnimatedGIFFromData(NSData *data)
+UIImage * _Nullable DTAnimatedGIFFromData(NSData * _Nonnull data)
 {
 	CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFDataRef)(data), NULL);
+	
+	if (!source)
+	{
+		return nil;
+	}
+
 	UIImage *image = DTAnimatedGIFFromImageSource(source);
 	CFRelease(source);
 	
 	return image;
 }
+
+#endif

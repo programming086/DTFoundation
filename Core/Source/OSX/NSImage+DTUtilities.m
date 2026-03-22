@@ -8,6 +8,8 @@
 
 #import "NSImage+DTUtilities.h"
 
+#if TARGET_OS_OSX
+
 @implementation NSImage (DTUtilities)
 
 - (BOOL)writeJPEGToFile:(NSString *)path withCompressionFactor:(CGFloat)compressionFactor atomically:(BOOL)useAuxiliaryFile
@@ -21,3 +23,5 @@
 }
 
 @end
+
+#endif

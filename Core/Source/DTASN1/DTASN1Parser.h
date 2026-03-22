@@ -6,7 +6,9 @@
 //  Copyright (c) 2012 Cocoanetics. All rights reserved.
 //
 
-#import "DTWeakSupport.h"
+#import <Foundation/Foundation.h>
+
+#import <DTFoundation/DTWeakSupport.h>
 
 /**
  Types of ASN1 tags, specifying the type of the following value in TLV notation

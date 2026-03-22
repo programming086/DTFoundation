@@ -8,6 +8,8 @@
 
 #import "DTScrollView.h"
 
+#if TARGET_OS_OSX
+
 @implementation DTScrollView
 
 - (void)scrollWheel:(NSEvent *)theEvent
@@ -46,3 +48,5 @@
 }
 
 @end
+
+#endif

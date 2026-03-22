@@ -6,9 +6,7 @@
 //  Copyright (c) 2012 Cocoanetics. All rights reserved.
 //
 
-
-#include "zip.h"
-#include "unzip.h"
+#import <Foundation/Foundation.h>
 
 @class DTZipArchiveNode;
 

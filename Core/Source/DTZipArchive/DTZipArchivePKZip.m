@@ -9,6 +9,9 @@
 #import "DTZipArchivePKZip.h"
 #import "DTZipArchiveNode.h"
 
+#include "zip.h"
+#include "unzip.h"
+
 @interface DTZipArchivePKZip()
 
 - (void)_buildIndex;
@@ -102,7 +105,7 @@
 	// get file info
 	unz_global_info  globalInfo = {0};
 	
-	if (!unzGetGlobalInfo(_unzFile, &globalInfo )==UNZ_OK )
+	if (unzGetGlobalInfo(_unzFile, &globalInfo )!=UNZ_OK )
 	{
 		// there's a problem
 		return;
@@ -304,7 +307,7 @@
 		NSFileManager *fileManager = [[NSFileManager alloc] init];
 		
 		// iterate through all files
-		for (DTZipArchiveNode *node in _listOfEntries)
+        for (DTZipArchiveNode *node in self->_listOfEntries)
 		{
 			if (self.isCancelling)
 			{
@@ -325,7 +328,7 @@
 			}
 			else
 			{
-				if (unzOpenCurrentFile(_unzFile) != UNZ_OK)
+                if (unzOpenCurrentFile(self->_unzFile) != UNZ_OK)
 				{
 					error = [self _errorWithText:@"Unable to open zip file" code:5 underlyingError:nil];
 					
@@ -364,7 +367,7 @@
 				
 				int readBytes;
 				unsigned char buffer[BUFFER_SIZE] = {0};
-				while ((readBytes = unzReadCurrentFile(_unzFile, buffer, BUFFER_SIZE)) > 0)
+                while ((readBytes = unzReadCurrentFile(self->_unzFile, buffer, BUFFER_SIZE)) > 0)
 				{
 					if (self.isCancelling)
 					{
@@ -381,24 +384,24 @@
 				}
 				
 				[_destinationFileHandle closeFile];
-				unzCloseCurrentFile(_unzFile);
+                unzCloseCurrentFile(self->_unzFile);
 				
 				// increase size of all files (uncompressed) -> to calculate progress
 				sizeUncompressed += node.fileSize;
 
 				// progress calc
-				float sizeInPercentUncompressed = (float) sizeUncompressed / _totalSize;
-				float itemsInPercentUncompressed = (float) numberOfItemsUncompressed / _totalNumberOfItems;
+                float sizeInPercentUncompressed = (float) sizeUncompressed / self->_totalSize;
+                float itemsInPercentUncompressed = (float) numberOfItemsUncompressed / self->_totalNumberOfItems;
 				float percent = MAX(sizeInPercentUncompressed, itemsInPercentUncompressed);
 				
 				// create progress notification
 				dispatch_async(dispatch_get_main_queue(), ^{
 					NSDictionary *userInfo = @{@"ProgressPercent" : [NSNumber numberWithFloat:percent],
-														@"TotalNumberOfItems" : [NSNumber numberWithLongLong:_totalNumberOfItems],
+                                               @"TotalNumberOfItems" : [NSNumber numberWithLongLong:self->_totalNumberOfItems],
 														@"NumberOfItemsUncompressed" : [NSNumber numberWithLongLong:numberOfItemsUncompressed],
-														@"TotalNumberOfFiles" : [NSNumber numberWithLongLong:_totalNumberOfFiles],
+                                               @"TotalNumberOfFiles" : [NSNumber numberWithLongLong:self->_totalNumberOfFiles],
 														@"NumberOfFilesUncompressed" : [NSNumber numberWithLongLong:numberOfFilesUncompressed],
-														@"TotalSize" : [NSNumber numberWithLongLong:_totalSize],
+                                               @"TotalSize" : [NSNumber numberWithLongLong:self->_totalSize],
 														@"SizeUncompressed" : [NSNumber numberWithLongLong:sizeUncompressed]};
 					
 					[[NSNotificationCenter defaultCenter] postNotificationName:DTZipArchiveProgressNotification object:self userInfo:userInfo];
@@ -408,7 +411,7 @@
 			// increase number of files -> to calculate progress
 			numberOfItemsUncompressed++;
 			
-			unzGoToNextFile(_unzFile);
+            unzGoToNextFile(self->_unzFile);
 		} // end of entry loop
 		
 		if (completion && !self.cancelling)
@@ -497,7 +500,7 @@
 	// get file info
 	unz_global_info  globalInfo = {0};
 	
-	if (!unzGetGlobalInfo(_unzFile, &globalInfo )==UNZ_OK )
+	if (unzGetGlobalInfo(_unzFile, &globalInfo )!=UNZ_OK )
 	{
 		// there's a problem
 		return;

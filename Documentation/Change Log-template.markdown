@@ -3,6 +3,43 @@ Change Log
 
 This is the history of version updates.
 
+**Version 1.7.12**
+
+- FIXED: [DTAnimatedGIF] An invalid file path causes a crash on loading
+
+**Version 1.7.11**
+
+- FIXED: Xcode 8 build error in Runtime
+- ADDED: tvOS Subspec
+
+**Version 1.7.10**
+
+- FIXED: stringByURLEncoding returned incorrect strings with iOS 9 SDK
+- FIXED: Warnings related to modular header imports
+- FIXED: Compiler warnings for iOS 9
+- FIXED: [DTPieProgressIndicator] now using tintColor by default
+- CHANGED: Moved DTAsyncFileDeleter into separate sub spec
+
+**Version 1.7.9**
+
+- ADDED: Support for app extensions
+- FIXED: Missing resume for data task in URL unshortener
+- CHANGED: Made smart paging delegate outlet so that it can be connected in IB
+- CHANGED: tvOS settings for combining HiDPI artwork, as suggested by Xcode
+- CHANGED: Exclude DTAlertView and DTActionSheet based on min OS instead of max OS
+- CHANGED: Removed deprecated classes from progress HUD demo
+- CHANGED: Xcode 7.1 update
+- FIXED: Unit tests
+
+**Version 1.7.8**
+
+- ADDED: Support for tvOS
+- ADDED: Define to disable code that does not work when building for extensions
+- ADDED: [DTASN1] now part of DTFoundation Core
+- FIXED: [DTASN1] Numbers with more than 4 bytes would not be represented as NSNumber
+- FIXED: [DTASN1] Zero-length strings would cause parsing to assume an error
+- CHANGED: Removed DTZipArchive unit tests that would sometimes randomly fail (timing)
+
 **Version 1.7.7**
 
 - FIXED: [DTSidePanelController] Panel might get stuck half way opened

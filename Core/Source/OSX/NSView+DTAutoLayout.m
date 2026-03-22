@@ -8,6 +8,8 @@
 
 #import "NSView+DTAutoLayout.h"
 
+#if TARGET_OS_OSX
+
 @implementation NSView (DTAutoLayout)
 
 - (void)addLayoutConstraintWithWidthGreaterOrEqualThan:(CGFloat)width
@@ -83,3 +85,5 @@
 }
 
 @end
+
+#endif

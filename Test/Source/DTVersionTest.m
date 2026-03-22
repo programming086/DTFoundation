@@ -7,7 +7,10 @@
 //
 
 #import "DTVersionTest.h"
-#import "DTVersion.h"
+
+#if !TARGET_OS_WATCH
+
+@import DTFoundation;
 
 @implementation DTVersionTest
 
@@ -145,3 +148,5 @@
 }
 
 @end
+
+#endif

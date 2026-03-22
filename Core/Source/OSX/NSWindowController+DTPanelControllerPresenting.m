@@ -6,8 +6,11 @@
 //  Copyright (c) 2012 Cocoanetics. All rights reserved.
 //
 
-#import "objc/runtime.h"
 #import "NSWindowController+DTPanelControllerPresenting.h"
+
+#if TARGET_OS_OSX
+
+#import "objc/runtime.h"
 #import "DTLog.h"
 
 static char DTPresentedViewControllerKey;
@@ -72,3 +75,5 @@ static char DTPresentedViewControllerDismissalQueueKey;
 }
 
 @end
+
+#endif

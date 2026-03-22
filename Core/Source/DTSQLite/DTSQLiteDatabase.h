@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Cocoanetics. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
 /**
  A wrapper for SQLite databases which offers threadsafe concurrency and support for cancelling long-running operations.
  */
@@ -50,11 +52,11 @@
 /**
  @param block The block to perform
  */
-- (void)performBlock:(void (^)())block;
+- (void)performBlock:(void (^)(void))block;
 
 /**
  @param block The block to perform
  */
-- (void)performBlockAndWait:(void (^)())block;
+- (void)performBlockAndWait:(void (^)(void))block;
 
 @end

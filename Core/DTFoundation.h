@@ -17,6 +17,8 @@
 
 #pragma mark - Universal
 
+#import "DTCompatibility.h"
+
 // Constants
 #import "DTFoundationConstants.h"
 
@@ -24,7 +26,7 @@
 #import "DTBlockFunctions.h"
 
 // Headers
-#import "DTWeakSupport.h"
+#import <DTFoundation/DTWeakSupport.h>
 
 // Categories
 #import "NSArray+DTError.h"
@@ -61,6 +63,9 @@
 #import "DTASN1Parser.h"
 #import "DTASN1Serialization.h"
 
+// Reachability
+#import "DTReachability.h"
+
 
 #pragma mark - iOS
 
@@ -92,7 +97,6 @@
 #import "UIImage+DTFoundation.h"
 #import "NSURL+DTAppLinks.h"
 #import "UIView+DTFoundation.h"
-#import "UIWebView+DTFoundation.h"
 
 #import "DTAnimatedGIF.h"
 

@@ -6,7 +6,14 @@
 //  Copyright (c) 2014 Cocoanetics. All rights reserved.
 //
 
-#import "DTWeakSupport.h"
+#import <Availability.h>
+#import <TargetConditionals.h>
+
+#if TARGET_OS_IPHONE && !TARGET_OS_WATCH
+
+#import <UIKit/UIKit.h>
+
+#import <DTFoundation/DTWeakSupport.h>
 
 @class DTSidePanelController;
 
@@ -35,3 +42,5 @@
 + (NSString *) getOptionIdentifier:(NSString *)identifier;
 
 @end
+
+#endif

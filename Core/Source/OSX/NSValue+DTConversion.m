@@ -8,6 +8,8 @@
 
 #import "NSValue+DTConversion.h"
 
+#if TARGET_OS_OSX
+
 @implementation NSValue (DTConversion)
 
 + (NSValue *)valueWithCGAffineTransform:(CGAffineTransform)transform
@@ -39,3 +41,5 @@
 }
 
 @end
+
+#endif

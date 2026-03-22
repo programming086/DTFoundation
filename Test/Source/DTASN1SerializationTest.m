@@ -8,9 +8,11 @@
 
 #import "DTASN1SerializationTest.h"
 
-#import "DTASN1Serialization.h"
-#import "DTBase64Coding.h"
+#if !TARGET_OS_WATCH
+
 #import "DTASN1BitString.h"
+
+@import DTFoundation;
 
 @implementation DTASN1SerializationTest
 
@@ -98,7 +100,7 @@
 
 - (void)testCertificateDecoding
 {
-    NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:@"SelfSigned" ofType:@"der"];
+    NSString *path = [self pathForTestResource:@"SelfSigned" ofType:@"der"];
     NSData *data = [NSData dataWithContentsOfFile:path];
     
     id object = [DTASN1Serialization objectWithData:data];
@@ -109,4 +111,23 @@
     XCTAssertEqual([object count], (NSUInteger)3, @"Certificate should have 3 sections");
 }
 
+#pragma mark - Helper
+
+- (NSString *)pathForTestResource:(nullable NSString *)name ofType:(nullable NSString *)ext
+{
+	NSBundle *testBundle = [NSBundle bundleForClass:[self class]];
+
+#if SWIFT_PACKAGE
+	NSURL *url = [[[testBundle bundleURL] URLByDeletingLastPathComponent] URLByAppendingPathComponent:@"DTFoundation_DTFoundationTests.bundle"];
+	NSBundle *resourceBundle = [NSBundle bundleWithURL:url];
+	NSString *finalPath = [resourceBundle pathForResource:name ofType:ext];
+#else
+	NSString *finalPath = [testBundle pathForResource:name ofType:ext];
+#endif
+	
+	return finalPath;
+}
+
 @end
+
+#endif

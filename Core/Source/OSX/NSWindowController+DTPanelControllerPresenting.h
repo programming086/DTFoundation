@@ -6,6 +6,13 @@
 //  Copyright (c) 2012 Cocoanetics. All rights reserved.
 //
 
+#import <Availability.h>
+#import <TargetConditionals.h>
+
+#if TARGET_OS_OSX
+
+#import <AppKit/AppKit.h>
+
 /**
  Enhancement for `NSWindowController` to present a sheet modally, similar to iOS.
  
@@ -37,3 +44,5 @@
 - (void)dismissModalPanelController;
 
 @end
+
+#endif

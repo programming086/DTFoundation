@@ -6,9 +6,11 @@
 //  Copyright (c) 2014 Cocoanetics. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#if !TARGET_OS_WATCH
+
 #import <XCTest/XCTest.h>
-#import "DTLog.h"
+
+@import DTFoundation;
 
 @interface DTLogTest : XCTestCase
 
@@ -131,3 +133,5 @@
  */
 
 @end
+
+#endif

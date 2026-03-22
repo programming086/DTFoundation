@@ -6,6 +6,13 @@
 //  Copyright (c) 2012 Cocoanetics. All rights reserved.
 //
 
+#import <Availability.h>
+#import <TargetConditionals.h>
+
+#if TARGET_OS_OSX
+
+#import <AppKit/AppKit.h>
+
 /**
  Utilities for `NSImage`.
  */
@@ -26,3 +33,5 @@
 - (BOOL)writeJPEGToFile:(NSString *)path withCompressionFactor:(CGFloat)compressionFactor atomically:(BOOL)useAuxiliaryFile;
 
 @end
+
+#endif

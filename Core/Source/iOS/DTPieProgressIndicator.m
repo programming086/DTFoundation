@@ -7,6 +7,11 @@
 //
 
 #import "DTPieProgressIndicator.h"
+
+#if TARGET_OS_IPHONE && !TARGET_OS_WATCH
+
+#import <UIKit/UIKit.h>
+
 #import "DTCoreGraphicsUtils.h"
 
 #define PIE_SIZE CGFloat_(34)
@@ -41,8 +46,6 @@
 	self.backgroundColor = [UIColor clearColor];
 }
 
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
 	// Drawing code
@@ -54,7 +57,7 @@
 	}
 	else 
 	{
-		[[UIColor whiteColor] set];
+		[self.tintColor set];
 	}
 	
 	CGContextBeginTransparencyLayer(ctx, NULL);
@@ -82,6 +85,11 @@
 	CGContextEndTransparencyLayer(ctx);
 }
 
+- (void)tintColorDidChange
+{
+	[super tintColorDidChange];
+	[self setNeedsDisplay];
+}
 
 #pragma mark Properties
 
@@ -105,7 +113,6 @@
 	}
 }
 
-@synthesize progressPercent = _progressPercent;
-@synthesize color = _color;
-
 @end
+
+#endif

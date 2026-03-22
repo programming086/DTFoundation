@@ -1,7 +1,7 @@
 About DTFoundation
 ==================
 
-[![Build Status](https://travis-ci.org/Cocoanetics/DTFoundation.png?branch=master)](https://travis-ci.org/Cocoanetics/DTFoundation) [![Coverage Status](https://coveralls.io/repos/Cocoanetics/DTFoundation/badge.png?branch=develop)](https://coveralls.io/r/Cocoanetics/DTFoundation?branch=develop)
+[![Build Status](https://travis-ci.org/Cocoanetics/DTFoundation.png?branch=develop)](https://travis-ci.org/Cocoanetics/DTFoundation) 
 
 DTFoundation is a collection of utility methods and category extensions that *Cocoanetics* is standardizing on. This should evolve into a toolset of well-documented and -tested code to accelerate future development.
 
@@ -21,7 +21,7 @@ Methods, categories and functions are grouped into Subspecs. The grouping determ
 - **DTSQLite:** Objective-C wrapper for SQLite
 - **DTUTI:** UTI methods
 - **DTZipArchive:** Handing of Pkzip and GZip files
-- **DTProgressHUD:** Displaying informations or progress (in the middle fo the screen)
+- **DTProgressHUD:** Displaying informations or progress (in the middle of the screen)
 
 License
 -------
